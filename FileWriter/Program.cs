@@ -1,15 +1,24 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.IO;
 
-namespace FileWriter
+namespace Convestudo.Unmanaged
 {
     class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
+            var testFileName = "log.txt";
+            using (var fileWriter = new FileWriter(testFileName))
+            {
+                Console.WriteLine("Writing first time...");
+                fileWriter.Write("First ");
+                fileWriter.Write("test string");
+            }
+
+            using (var streamReader = new StreamReader(testFileName))
+            {
+                Console.WriteLine(streamReader.ReadToEnd());
+            }
         }
     }
 }
