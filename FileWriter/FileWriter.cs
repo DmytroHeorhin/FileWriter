@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Convestudo.Unmanaged
 {
-    public class FileWriter : IFileWriter
+    public class FileWriter : IFileWriter, IDisposable
     {
         private readonly FileHandle _fileHandle;
 
@@ -40,7 +40,12 @@ namespace Convestudo.Unmanaged
             Write($"{str}{Environment.NewLine}");
         }
 
-        public void Dispose()
+        void IDisposable.Dispose()
+        {
+            Close();
+        }
+
+        public void Close()
         {
             Dispose(true);
             GC.SuppressFinalize(this);
